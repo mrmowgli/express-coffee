@@ -1,0 +1,24 @@
+//- User logged in or no?
+//- views/home.handlebars 
+if user
+  div.jumbotron
+    h1 MongoDB User Authentication
+    p Below is your profile information!
+  div.panel panel-default
+    div.panel-heading
+      h3.panel-title Profile Information
+    div.panel-body
+      p Username: #{user.userName}
+      p Avatar: 
+        img(src="#{user.avatar}")
+else
+  div.jumbotron
+    h1 MongoDB User Authentication
+    p Sign in and view your profile!
+    p
+      a.btn.btn-primary.btn-lg(href="/signin" role="button")
+        span.glyphicon.glyphicon-user
+          | Sign in!
+        span.glyphicon.glyphicon-user
+          | Sign up!
+

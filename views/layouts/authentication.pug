@@ -1,0 +1,42 @@
+nav.navbar.navbar-default(role="navigation")
+  div.container-fluid
+    //- !-- Brand and toggle get grouped for better mobile display
+    div.navbar-header
+      button.navbar-toggle(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1")
+        span.sr-only Toggle navigation
+        span.icon-bar 
+        span.icon-bar 
+        span.icon-bar 
+
+  //- !-- Collect the nav links, forms, and other content for toggling
+  div.collapse.navbar-collapse#bs-example-navbar-collapse-1
+    ul.nav.navbar-nav
+      li
+        if user
+          p.navbar-text
+            strong Hi,
+            img(src="#{user.avatar}" width="20" height="20")
+            #{user.userName}
+          
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="/logout") Log Out
+        else
+          a( href="/signin") Sign In
+
+    ul.nav.navbar-nav
+    form.navbar-form.navbar-left(role="search" method="post", action="/pdf", target='pdfView')
+      .form-group 
+        input(type="text", name="name" placeholder="Title").form-control
+        input(type="text", name="content" placeholder="Content").form-control
+      button(type="submit").btn.btn-default Submit
+
+
+if error
+  p.alert.alert-warning #{error}
+
+if success
+  p.alert.alert-success #{success}
+
+if notice
+  p.alert.alert-info #{notice}

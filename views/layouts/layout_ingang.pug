@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title Base(ics) Site
+    link(href='https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600' rel='stylesheet' type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Allan:bold' rel='stylesheet' type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css')
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+    block metaInfo
+      meta(charset="utf-8")
+      meta(http-equiv="X-UA-Compatible" content="IE=edge")
+      meta(name="viewport" content="width=device-width, initial-scale=1")
+      meta(name="description" content="Base(ic) Site")
+      meta(name="author" content="Base(ic) Site")
+ 
+  body
+
+    include simpleNav
+    //- Show any status messages
+    if error
+      p.alert.alert-warning #{error}
+    if success
+      p.alert.alert-success #{success}
+    if notice
+      p.alert.alert-info #{notice}
+    block content
+    //- .container-fluid.container-full
+    //-   .row-full
+    //-     .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    //-       block content
+            
+    include footer
+    script(src='/js/jquery.min.js')
+    script(src='/js/bootstrap.min.js')
+    //- script(src='/js/d3.min.js')
+    //-script(src='/js/d3-color.min.js')
+    //-script(src='/js/burst.js')
+    //- script(src='/js/histo.js')

@@ -1,0 +1,49 @@
+extends layouts/layout_ingang
+//- views/signin.handlebars
+
+block content
+  div &nbsp;
+  div.jumbotron
+    h1 Sign in
+    p Please sign-in with your Local, Twitter, Google, or Facebook account to view your profile.
+    p Sign in with:
+      a.btn.btn-info.btn-lg(href="/auth/twitter" role="button")
+        span.glyphicon.glyphicon-user
+        | Twitter
+      a.btn.btn-danger.btn-lg(href="/auth/google" role="button")
+        span.glyphicon.glyphicon-user
+        | Google
+      a.btn.btn-primary.btn-lg(href="/auth/facebook" role="button")
+        span.glyphicon.glyphicon-user
+        | Facebook
+    
+    div.collapse#local
+      a.btn.btn-default.btn-md(data-toggle="collapse" href="#local-sign-in" role="button") 
+        | already have an account
+      a.btn.btn-default.btn-md(data-toggle="collapse" href="#local-reg" role="button")
+        | I need to make an account
+
+    form.collapse#local-sign-in(action="/login" method="post")
+      div
+        p
+        label Username:
+        input(type="text" name="username")
+      div
+        label Password:
+          input(type="password" name="password")
+      div
+        input.btn.btn-primary.btn-sm(type="submit" value="Log In")
+
+    p
+      a.btn.btn-warning.btn-lg(data-toggle="collapse" href="#local" role="button")
+        span.glyphicon.glyphicon-user 
+        | Sign in Locally
+    form.collapse#local-reg(action="/reg-signup" method="post")
+      div
+        label New Username:
+        input(type="text" name="username")
+      div
+        labelNew Password:
+        input(type="password" name="password")
+      div
+        input.btn.btn-primary.btn-sm(type="submit" value="Register")

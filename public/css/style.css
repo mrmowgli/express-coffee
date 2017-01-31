@@ -1,0 +1,132 @@
+/* These are our main background swatches for the 
+   application. */
+/*TODO: Add these as less vars to use our pallette */
+.bg-1 { 
+    background-image:  url(/images/bluelamp.JPG);
+    color: #ffffff;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.bg-2 { 
+    background-color: #474e5d; /* Dark Blue */
+    color: #ffffff;
+}
+.bg-3 { 
+    background-image:  url(/images/cushions.JPG);
+    background-color: #474e5d; /* White */
+    color: #9595ff;
+}
+.bg-4 { 
+    background:  url(/images/dofwood.JPG) no-repeat center center fixed;
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+}
+
+.full {
+    background: url('/images/dofwood.JPG') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+/*TODO:  This actually causes the bottom scrollbar to show*/
+.row-full {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.alert {
+  margin-top: 40px;
+}
+
+.panel {
+  background-color:  #474e5d;
+  color: #ffffff;
+  
+}
+
+
+ /*This is supposed to help keep our footer in place, 
+   but I suspect this will require Javascript to 
+   accomplish. */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+html, body { height: 100%; }
+body {
+  margin-bottom: 45px;
+}
+
+/* Override our defaults and make our fonts consistent */
+h1 {
+  font-family: 'Allan', Helvetica, Arial, sans-serif;
+  font-size: 70px;
+  line-height: 75px;
+}
+h2 {
+  font-family: 'Work+Sans', Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  line-height: 45px;
+}
+ 
+p {
+  font-family: 'Cardo', Georgia, Times, serif;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.container-fluid {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* Give ourselves some distance to next element*/
+.margin {margin-bottom: 45px;}
+
+/* Variables for D3 rendering our grid.*/
+path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
+
+.bar rect {
+  fill: green;
+}
+
+.bar text {
+  fill: #fff;
+  font: 10px sans-serif;
+}
+
+
+/* Custom well colors.*/
+.well.bg-info {
+    background: #4545ff;
+    color: #ffffff;
+}
+
+.k, .bg-1, .bg-2, .bg-3 {
+  position: relative;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; }
+
+
+
+
+

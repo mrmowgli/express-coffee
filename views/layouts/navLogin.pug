@@ -15,8 +15,8 @@ else
       a( href="/local-reg") Sign Up
   form.navbar-form.navbar-right(action="/login" method="post")
     .form-group
-      input.form-control(type='text', placeholder='Email')
+      input.form-control(type='text', name='username', placeholder='Email')
     .form-group
-      input.form-control(type='password', placeholder='Password')
+      input.form-control(type='password', name='password', placeholder='Password')
       
     button.btn.btn-success(type='submit') Sign in

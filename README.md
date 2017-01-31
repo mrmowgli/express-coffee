@@ -4,16 +4,37 @@ This is fairly bare boned, but slightly more involved than the generated express
 
 The key goal is to create a simple site quickly and easily.  The site doesn't use any navigation frameworks, such as Angular.js or Ember, but could be easily extended to use them.
 
-To use:
+To install:
 
+```bash
+$ git clone https://github.com/mrmowlgli/app-baseics
+$ npm install
+```
 
+To use (server side):
 
+```bash
+$ ./bin/www
+```
+
+Then follow the checklist items in the CHECKLIST.md file to customize your application.
+
+To use (Client JS):
+
+```bash
+$ npm -g install grunt
+$ npm install grunt-cli
+$ npm install bower
+$ grunt
+```
 
 
 TODO:
 * Add alternate data strategies
 * Include a build framework such as Grunt
 * Include a LESS build for customizing.
+* Add form validation for logins.
+* Add alternate 'Dashboard' template.
 * Add tests, especially around the authentication framework.
 * Clean up workflows.
 

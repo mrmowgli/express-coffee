@@ -14,7 +14,7 @@ This is a checklist for tayloring the application. Make sure you taylor each of 
 
 * Modify the Config.coffee file.
 * Change the location of the LevelDB data file.
-* Change the Cookie token
-* Change the Data Access strategy
-* Turn off stack traces in the error.pug file.
-* Turn on the google api
+* Change the cookie/request token in App.coffee
+* Change the Data Access strategy, or move the location to permanent storage.
+* Turn off stack traces in the error.pug template file.
+* Turn on the google analytics api

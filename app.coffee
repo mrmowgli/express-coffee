@@ -9,6 +9,7 @@ methodOverride = require('method-override')
 bodyParser = require('body-parser')
 exphbs = require('express-handlebars')
 uuid = require('uuid4')
+helmet = require('helmet')
 level = require('level')
 passport = require('passport')
 LocalStrategy = require('passport-local')
@@ -39,17 +40,29 @@ app.use bodyParser.json()
 app.use bodyParser.urlencoded(extended: false)
 
 # This should be changed per application.
+expiryDate = new Date(Date.now() + 60 * 60 * 1000)
 app.use cookieParser('CHANGEMECHANGEME!!')
 app.use session
   secret: 'CHANGEMECHANGEME!!'
   resave: true
   saveUninitialized: true
-  cookie: { secure: true }
+  cookie:
+    # TODO: Renable when SSL cert is in use 
+    #secure: true 
+    httpOnly: true
+    domain: 'changeme.com',
+    path: '/',
+    # TODO: this should accept a function
+    expires: expiryDate
+
   genid: (req) ->
     return uuid(); # use UUIDs for session IDs 
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+# Helmet is a suite of middleware that kills most XSS attacks.
+app.use(helmet())
 
 # Set out persistence
 app.locals.db = level './data',

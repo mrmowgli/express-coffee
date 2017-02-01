@@ -1,0 +1,30 @@
+{
+  "version": "0.0.1",
+  "name": "express_basics",
+  "private": true,
+  "scripts": {
+    "start": "coffee ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^0.7.12",
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.14.2",
+    "helmet": "^3.4.0",
+    "level": "^1.5.0",
+    "method-override": "^2.3.7",
+    "morgan": "^1.7.0",
+    "passport": "^0.2.0",
+    "passport-facebook": "^1.0.3",
+    "passport-google": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.2",
+    "q": "^1.0.1",
+    "serve-favicon": "~2.3.0",
+    "uuid4": "^1.0.0",
+    "when": "^3.7.7"
+  }
+}

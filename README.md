@@ -14,7 +14,6 @@ $ git clone https://github.com/mrmowlgli/express-coffee.git
 $ npm install
 ```
 
-
 To use (server side):
 
 ```bash
@@ -27,7 +26,7 @@ config.coffee
 appSettings: 
   siteName: 'Demo Site'
   siteUrl: 'http://demosite.com'
-  siteSugar: '04de0a5d-1476-401c-ab5d-349543097920'
+  siteSalt: '04de0a5d-1476-401c-ab5d-349543097920'
   dataUrl: 'user:password@http://mongohq.com'
   dataSocket: null
   dataDir: './data'
@@ -37,6 +36,7 @@ appSettings:
 
 Then follow the checklist items in the CHECKLIST.md file to customize your application.
 
+Currently we are actually bundling required JS files, rather than using the CDN's.  This will likely change, but is handy for local dev.
 
 To make changes to client side libs (Client JS):
 
@@ -52,10 +52,20 @@ TODO:
 * Add alternate data strategies
 * extract credential info into config.coffee
 * Include a build framework such as Grunt
+* include bower files
 * Include a LESS build for customizing.
 * Add form validation for logins.
 * Add alternate 'Dashboard' template.
 * Add tests, especially around the authentication framework.
 * Clean up workflows.
+* Add copyright to images.
+* Update to Bootstrap 4
+* Update Coffeescript to CS2 release.
+* Add babel compile step.
+* Add Yeoman route builder 
 
 
+### Current Issues:
+* Login needs to be verified but should work..
+* Main header doesn't reflect login status (yet).
+* Session locals need to be set for templates aka `req.locals.user`

@@ -1,4 +1,5 @@
 # ignore for local dev 
+config.coffee
 public/example
 fullpage
 node_modules

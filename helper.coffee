@@ -13,7 +13,17 @@ exports.localReg = (app) ->
     db = app.locals.db
     # TODO: Verify that Passport accepts promises.
     return whenjs.promise (resolve, reject, notify) ->
-      db.get 'userName_' + userName, (err, result) ->
+
+      entries = []
+
+      # TODO: Example of a range query
+      #       Convert searches to stream searches. 
+      # db.createReadStream({ start: userName + '\x00', end: userName + '\x00\xff' })  
+      # .on 'data', (entry) -> entries.push(entry) 
+      # .on 'close', () ->  console.log(entries) 
+
+
+      db.get 'userName\x00' + userName, (err, result) ->
         # userName exists
         console.log ":helper-reg: ", err, user
         if result
@@ -21,16 +31,18 @@ exports.localReg = (app) ->
           resolve false
         else
           hash = bcrypt.hashSync(password, 8)
+          id = uuid()
           user = 
             'userName': userName
             'password': hash
-            'uuid': uuid()
+            'uuid': id
+            'id' : id
             'avatar': 'http://placekitten/200/300'
           
           console.log 'CREATING USER:', userName
           # TODO: Add replacer to json.Stringify / but change LevelDB options 
           # TODO: Include UUID in key
-          db.put 'userName_' + userName, JSON.stringify(user), () ->
+          db.put 'userName\x00' + userName, JSON.stringify(user), () ->
             resolve user
             
 # check if user exists
@@ -42,7 +54,7 @@ exports.localAuth = (app) ->
   return (userName, password) ->
     return whenjs.promise (resolve, reject, notify) ->
       db = app.locals.db
-      db.get 'userName_' + userName, (err, result) -> 
+      db.get 'userName\x00' + userName, (err, result) -> 
         unless result
           console.log 'userName NOT FOUND:', userName
           resolve false

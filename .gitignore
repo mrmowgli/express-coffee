@@ -1,0 +1,5 @@
+# ignore for local dev 
+public/example
+fullpage
+node_modules
+data

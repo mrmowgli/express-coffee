@@ -11,30 +11,48 @@ $ git clone https://github.com/mrmowlgli/app-baseics
 $ npm install
 ```
 
+
 To use (server side):
 
 ```bash
 $ ./bin/www
 ```
+Currently the app will work as is, however soon we will be making changes to the credential sections. You can ignore the following section for now.
+
+config.coffee
+```coffee-script
+appSettings: 
+  siteName: 'Demo Site'
+  siteUrl: 'http://demosite.com'
+  siteSugar: '04de0a5d-1476-401c-ab5d-349543097920'
+  dataUrl: 'user:password@http://mongohq.com'
+  dataSocket: null
+  dataDir: './data'
+  cookieTimeout: 2 * 60 * 60 * 1000 # Milliseconds - two hours
+
+```
 
 Then follow the checklist items in the CHECKLIST.md file to customize your application.
 
-To use (Client JS):
+
+To make changes to client side libs (Client JS):
 
 ```bash
 $ npm -g install grunt
 $ npm install grunt-cli
 $ npm install bower
-$ grunt
+$ grunt server
 ```
 
 
 TODO:
 * Add alternate data strategies
+* extract credential info into config.coffee
 * Include a build framework such as Grunt
 * Include a LESS build for customizing.
 * Add form validation for logins.
 * Add alternate 'Dashboard' template.
 * Add tests, especially around the authentication framework.
 * Clean up workflows.
+
 

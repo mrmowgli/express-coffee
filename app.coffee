@@ -17,7 +17,7 @@ TwitterStrategy = require('passport-twitter')
 GoogleStrategy = require('passport-google')
 FacebookStrategy = require('passport-facebook')
 
-# TODO: config file contains all tokens and other private info
+# TODO: config file should contain all tokens and other private info
 # config = require('./config')
 
 # helper file contains our helper functions for our Passport and database work
@@ -47,10 +47,11 @@ app.use session
   resave: true
   saveUninitialized: true
   cookie:
-    # TODO: Renable when SSL cert is in use 
+    # TODO: Re-enable when SSL cert is in use 
     #secure: true 
     httpOnly: true
-    domain: 'changeme.com',
+    #TODO: Re-enable when in production.
+    # domain: 'changeme.com',
     path: '/',
     # TODO: this should accept a function
     expires: expiryDate
@@ -58,13 +59,15 @@ app.use session
   genid: (req) ->
     return uuid(); # use UUIDs for session IDs 
 
-app.use(passport.initialize());
-app.use(passport.session());
+# Required to set up Passport, AFTER session init
+app.use(passport.initialize())
+# Required for persistant session support
+app.use(passport.session())
 
 # Helmet is a suite of middleware that kills most XSS attacks.
 app.use(helmet())
 
-# Set out persistence
+# Set our persistence, saving as JSON values.
 app.locals.db = level './data',
   keyEncoding   : 'binary'
   valueEncoding : 'json'
@@ -82,15 +85,16 @@ passport.use 'local-signin', new LocalStrategy({ passReqToCallback: true }, (req
       console.log 'LOGGED IN AS: ' + user.userName
       req.session.success = 'You are successfully logged in ' + user.userName + '!'
       return done(null, user)
+      # Satisfy Pug requirements for making available
+      req.locals.user = user
     if !user
       console.log 'COULD NOT LOG IN'
       req.session.error = 'Could not log user in. Please try again.'
       #inform user could not log them in
-      return done(null, user)
-  # TODO: This section should be addressed.
-  # .fail (err) ->
-  #   console.log err.body
-  #   return done(null, null)
+      return done(null, false)
+  .catch (err) ->
+    console.log err.body
+    return done(err, null)
 )
 
 # Use the LocalStrategy within Passport to register/"signup" users.
@@ -102,6 +106,9 @@ passport.use 'local-signup', new LocalStrategy({ passReqToCallback: true }, (req
     if user
       console.log 'REGISTERED: ' + user.userName
       req.session.success = 'You are successfully registered and logged in ' + user.userName + '!'
+      # Satisfy Pug requirements for making available
+      req.locals.user = user
+
       done null, user
     if !user
       console.log 'COULD NOT REGISTER'
@@ -116,13 +123,32 @@ passport.use 'local-signup', new LocalStrategy({ passReqToCallback: true }, (req
   return
 )
 
+# Used to add  to session
 passport.serializeUser (user, done) ->
   console.log 'serializing ' + user.userName
-  done null, user
+  # Sets the key items into the session.
+  # TODO, temporary, remove uuid
+  done null, user.userName
   return
 
 passport.deserializeUser (obj, done) ->
+  # Before we stored the entire object.
+  # TODO: Abstract this so we don't care 
+  #       what the storage for this was.
   console.log 'deserializing ' + obj
+  # It really should pull the UUID, but...
+  # LevelDB stuff.
+
+  # db = app.locals.db
+  # db.get 'userName_' + userName, (err, result) -> 
+  #   unless result
+  #     console.log 'userName NOT FOUND:', userName
+  #     resolve false
+  #   else
+  #     # TODO: CHANGE if we change storage types
+  #     result = JSON.parse(result)
+  #     hash = result.password
+
   done null, obj
   return
   
@@ -154,27 +180,25 @@ app.use (req, res, next) ->
 
 app.use express.static(path.join(__dirname, 'public'))
 
-
 app.use '/', index
 app.use '/users', ensureAuthenticated
 app.use '/users', users
 
-#TODO: Rip Out
-app.get '/traverse', (req, res) ->
-  res.render 'layouts/origFrame'
-  return
 #displays our signup page
 app.get '/signin', (req, res) ->
   res.render 'signin'
   return
+
 #sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
 app.post '/reg-signup', passport.authenticate('local-signup',
   successRedirect: '/'
   failureRedirect: '/signin')
+
 #sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
 app.post '/login', passport.authenticate('local-signin',
   successRedirect: '/'
   failureRedirect: '/signin')
+
 #logs user out of site, deleting them from the session, and returns to homepage
 app.get '/logout', (req, res) ->
   name = req.user.username
@@ -183,7 +207,6 @@ app.get '/logout', (req, res) ->
   res.redirect '/'
   req.session.notice = 'You have successfully been logged out ' + name + '!'
   return
-
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->

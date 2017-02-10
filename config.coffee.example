@@ -1,0 +1,25 @@
+# This is an EXAMPLE of the actual settings file.
+# To use, be sure to mv this file into config.coffee
+# Changes in this file will not be visible to the app.
+module.exports = appSettings =  
+  # The global display name for the site.
+  siteName: 'Demo Site'
+  # The top URL for the site. Everything will be relative to this.
+  siteUrl: 'http://demosite.com'
+  # This is a unique hash attached to your storage.  To generate
+  # you should use uuidgen
+  siteSalt: '04de0a5d-1476-401c-ab5d-349543097920'
+
+  # STORAGE OPTIONS
+
+  # The following is used for remote data storage.
+  dataUrl: 'user:password@http://mongohq.com'
+  # Change this if connecting to a non-standard port
+  dataSocket: null
+  # Default used by the base install of LevelDB
+  # If using Docker, make sure this points to persistant
+  # drive space.  Otherwise your data will be wiped on restart.
+  dataDir: './data'
+  # How long should your global cookies persist?
+  cookieTimeout: 2 * 60 * 60 * 1000 # Milliseconds - two hours
+

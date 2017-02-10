@@ -1,4 +1,5 @@
-# ignore for local dev 
+# DO NOT remove config.coffee.
+# This file should NEVER be checked in. 
 config.coffee
 public/example
 fullpage

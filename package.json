@@ -3,7 +3,7 @@
   "name": "express_basics",
   "private": true,
   "scripts": {
-    "start": "coffee ./bin/www"
+    "test": "grunt test"
   },
   "dependencies": {
     "bcryptjs": "^0.7.12",
@@ -28,6 +28,7 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
+    "autoprefixer-core": "^6.0.1",
     "grunt": "^1.0.1",
     "grunt-browser-sync": "^2.2.0",
     "grunt-concurrent": "^2.3.1",
@@ -59,8 +60,5 @@
   },
   "engines": {
     "node": ">=7.4.0"
-  }, 
-  "scripts": {
-    "test": "grunt test"
   }
 }

@@ -41,12 +41,19 @@ Currently we are actually bundling required JS files, rather than using the CDN'
 To make changes to client side libs (Client JS):
 
 ```bash
-$ npm -g install grunt
-$ npm install grunt-cli
+$ npm -g install grunt-cli
+$ npm install grunt
 $ npm install bower
+$ bower install
+$ bower update
 $ grunt server
 ```
 
+For testing, please ensure that phantomjs is installed:
+
+```bash
+$ npm -g install phantomjs
+```
 
 TODO:
 * Add alternate data strategies

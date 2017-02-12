@@ -1,0 +1,23 @@
+{
+  "name": "express-coffee",
+  "private": true,
+  "dependencies": {
+    "bootstrap-less": "^3.3.7",
+    "modernizr": "~2.8.3",
+    "components-bootstrap": "^3.3.7"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "assets/stylesheets/_bootstrap.less",
+        "assets/fonts/bootstrap/*",
+        "assets/javascripts/bootstrap.js"
+      ]
+    }
+  },
+  "devDependencies": {
+    "chai": "~3.0.0",
+    "mocha": "~2.2.5",
+    "bootstrap-less": "~3.3.4"
+  }
+}

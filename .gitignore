@@ -4,4 +4,9 @@ config.coffee
 public/example
 fullpage
 node_modules
+# Included only because we are using stock bootstrap.
+# If you are really creating custom less,
+# ignore specific items in bower_components, and check
+# in any changes to git.
+bower_components
 data

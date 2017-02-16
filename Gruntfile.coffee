@@ -1,6 +1,5 @@
 ###jshint node:true###
 
-'use strict'
 # # Globbing
 # for performance reasons we're only matching one level down:
 # 'test/spec/{,*/}*.js'
@@ -14,7 +13,7 @@ module.exports = (grunt) ->
   require('jit-grunt') grunt, useminPrepare: 'grunt-usemin'
   # Configurable paths
   config = 
-    app: 'app'
+    app: 'client_src'
     dist: 'dist'
 
   # Load the core LESS tasks
@@ -41,10 +40,10 @@ module.exports = (grunt) ->
           'less:server'
           'postcss'
         ]
-      jade:
-        files: [ '<%= config.app %>{,*/}*.jade' ]
+      pug:
+        files: [ '<%= config.app %>{,*/}*.pug' ]
         tasks: [
-          'jade:server'
+          'pug:server'
         ]
       styles:
         files: [ '<%= config.app %>/styles/{,*/}*.css' ]
@@ -120,9 +119,6 @@ module.exports = (grunt) ->
       run: true
       urls: [ 'http://<%= browserSync.test.options.host %>:<%= browserSync.test.options.port %>/index.html' ]
 
-    ###
-      ANDRE: Added this section for less.
-    ###
     less:
       options:
         sourceMap: true
@@ -154,17 +150,13 @@ module.exports = (grunt) ->
           ext: '.css'
         } ]
 
-    ###
-      ANDRE: Added this section for jade.
-    ###
-    jade:
+    pug:
       options:
         sourceMap: true
         sourceMapEmbed: true
         sourceMapContents: true
         pretty: true
         
-
       server: 
         options: 
           data:
@@ -172,7 +164,7 @@ module.exports = (grunt) ->
         files: [ 
           expand: true
           cwd: '<%= config.app %>'
-          src: [ '{,*/}*.jade' ]
+          src: [ '{,*/}*.pug' ]
           dest: '.tmp'
           ext: '.html'
         ]
@@ -186,7 +178,7 @@ module.exports = (grunt) ->
         files: [ {
           expand: true
           cwd: '<%= config.app %>'
-          src: [ '{,*/}*.jade' ]
+          src: [ '{,*/}*.pug' ]
           dest: '<%= config.dist %>'
           ext: '.html'
         } ]
@@ -337,9 +329,11 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean:dist'
+    'pug'
     'wiredep'
     'useminPrepare'
     'concurrent:dist'
+    'less'
     'postcss'
     'concat'
     'cssmin'

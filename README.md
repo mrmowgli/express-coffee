@@ -5,13 +5,15 @@ This is a stock framework to use as a base for future projects using Express, Co
 
 This is fairly bare boned, but slightly more involved than the generated express example.  By default it uses LevelUp, and LevelDB to store data.  This is stored in the app local directory, and will not persist if used in a docker image.
 
-The key goal is to create a simple site quickly and easily.  The site doesn't use any navigation frameworks, such as React, Angular.js or Ember, but could be easily extended to use them.
+The key goal is to create a simple site quickly and easily.  The site doesn't (currently) use any navigation frameworks, such as React, Angular.js or Ember, but could be easily extended to use them.
 
 To install:
 
 ```bash
 $ git clone https://github.com/mrmowlgli/express-coffee.git
 $ npm install
+$ npm install -g bower
+$ npm install -g grunt-cli
 ```
 
 To use (server side):
@@ -19,7 +21,40 @@ To use (server side):
 ```bash
 $ ./bin/www
 ```
-Currently the app will work as is, however soon we will be making changes to the credential sections. You can ignore the following section for now.
+The application is really two separate application flows:
+
+* Server side rendering with Node.js/Express/Pug/LevelDB
+* Client side static files built with Grunt from Coffeescript and Less
+
+This is a slightly older workflow, but allows a lot of flexibility in how we handle resources.  Dependencies are pulled down as part of the build rather than installing a million dependencies into your node environment.
+
+Key aspects of this workflow are:
+
+**Client side only** files are compressed and concatted, then put directly into our express public folder.  These resources are then returned on our page accesses.  Static pages are returned directly, other resources are included as needed into our server rendered pages. 
+* Source files are in `client_src`, inlcuding full PUG templates, and client side Coffee files.
+* Bootstrap resources are modified and included as less.  These overrides should happen in the `client_src` directory as well.
+* Bower components are kept in the `bower_components` directory.  These files are added in manually to the `Gruntfile.coffee` file, one for each task that needs to be included.
+
+To make changes to client side libs (Client JS):
+
+```bash
+$ npm -g install grunt-cli
+$ npm -g install bower
+$ bower install
+$ bower update
+$ grunt server
+```
+
+**Server side resources** are managed with the remaining folders.  The keys are the `views` directory, which holds the main server side rendered pug files, and the routes folder.  The `test` folder contains the mocha/chai assertion libraries needed to perform the key tests.
+
+To perform the server side tests:
+
+`npm test`
+
+
+Currently the app will work as is, however soon we will be making changes to the way we create our JS and CSS files as well as changes to the credential sections. 
+
+You can ignore the following section for now.
 
 config.coffee
 ```coffee-script
@@ -36,18 +71,8 @@ appSettings:
 
 Then follow the checklist items in the CHECKLIST.md file to customize your application.
 
-Currently we are actually bundling required JS files, rather than using the CDN's.  This will likely change, but is handy for local dev.
-
-To make changes to client side libs (Client JS):
-
-```bash
-$ npm -g install grunt-cli
-$ npm install grunt
-$ npm install bower
-$ bower install
-$ bower update
-$ grunt server
-```
+### Other notes
+Currently we are actually bundling required JS files, rather than using the CDN's.  This will likely change, but is handy for local dev.  In reality we build our CS/JS and LESS/CSS and then bundle concatted and minified versions to reduce the number of connections our page makes.  You can run grunt for the front end section and push the resulting client side files to a CDN if speed is your thing, but for the most part this is beyond the scope of this readme.
 
 For testing, please ensure that phantomjs is installed:
 

@@ -95,9 +95,3 @@ TODO:
 * Update Coffeescript to CS2 release.
 * Add babel compile step.
 * Add Yeoman route builder 
-
-
-### Current Issues:
-* Login needs to be verified but should work..
-* Main header doesn't reflect login status (yet).
-* Session locals need to be set for templates aka `req.locals.user`
